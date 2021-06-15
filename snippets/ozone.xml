@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <!-- Github -->
+  <remote  name="github"
+           fetch=".." />
+
+  <!-- Ozone-OS -->
+  <remote  name="ozone"
+           revision="11"
+           fetch="../Ozone-OS" />
+
+  <!-- Code Aurora Forums -->
+  <remote name="caf"
+          fetch="https://source.codeaurora.org/quic/la"
+          revision="refs/tags/LA.QSSI.11.0.r1-12100-qssi.0" />
+
+  <remote name="caf_vendor"
+          fetch="https://source.codeaurora.org/quic/la"
+          revision="refs/tags/LA.UM.9.14.r1-16700-LAHAINA.0" />
+
+  <!-- ART -->
+  <project path="art" name="art" remote="ozone" />
+
+  <!-- Bionic -->
+  <project path="bionic" name="bionic" remote="ozone" />
+
+  <!-- Build -->
+  <project path="build/make" name="build" remote="ozone" groups="pdk" >
+    <copyfile src="core/root.mk" dest="Makefile" />
+    <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
+    <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
+    <linkfile src="core" dest="build/core" />
+    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
+    <linkfile src="target" dest="build/target" />
+    <linkfile src="tools" dest="build/tools" />
+  </project>
+  <project path="build/soong" name="build_soong" remote="ozone" groups="pdk,tradefed" >
+    <linkfile src="root.bp" dest="Android.bp" />
+    <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+  </project>
+
+  <!-- Development -->
+  <project path="development" name="development" remote="ozone" />
+
+  <!-- Device -->
+  <project path="device/ozone/sepolicy" name="device_ozone_sepolicy" remote="ozone" />
+  <project path="device/qcom/common" name="device_qcom_common" remote="ozone" />
+  <project path="device/qcom/sepolicy" name="device_qcom_sepolicy" remote="ozone"  />
+  <project path="device/qcom/sepolicy_vndr" name="device_qcom_sepolicy" remote="ozone" revision="11-vendor" />
+  <project path="device/qcom/sepolicy-legacy-um" name="device_qcom_sepolicy" remote="ozone" revision="11-legacy-um" />
+
+  <!-- External -->
+  <project path="external/ant-wireless/ant_client" name="LineageOS/android_external_ant-wireless_ant_client" remote="github" revision="lineage-18.1" />
+  <project path="external/ant-wireless/ant_native" name="LineageOS/android_external_ant-wireless_ant_native" remote="github" revision="lineage-18.1" />
+  <project path="external/ant-wireless/ant_service" name="LineageOS/android_external_ant-wireless_ant_service" remote="github" revision="lineage-18.1" />
+  <project path="external/ant-wireless/antradio-library" name="LineageOS/android_external_ant-wireless_antradio-library" remote="github" revision="lineage-18.1" />
+  <project path="external/ant-wireless/hidl" name="LineageOS/android_external_ant-wireless_hidl" remote="github" revision="lineage-18.1" />
+  <project path="external/arm-optimized-routines" name="external_arm-optimized-routines" remote="ozone" />
+  <project path="external/compiler-rt" name="external_compiler-rt" remote="ozone" />
+  <project path="external/dtc" name="external_dtc" remote="ozone" />
+  <project path="external/e2fsprogs" name="external_e2fsprogs" remote="ozone" />
+  <project path="external/gptfdisk" name="external_gptfdisk" remote="ozone" />
+  <project path="external/honggfuzz" name="external_honggfuzz" remote="ozone" />
+  <project path="external/json-c" name="external_json-c" remote="ozone" />
+  <project path="external/libnfc-nxp" name="external_libnfc-nxp" remote="ozone" />
+  <project path="external/python/cpython2" name="external_python_cpython2" remote="ozone" />
+  <project path="external/selinux" name="external_selinux" remote="ozone" />
+  <project path="external/tinycompress" name="external_tinycompress" remote="ozone" />
+  <project path="external/wpa_supplicant_8" name="external_wpa_supplicant_8" remote="ozone" />
+
+  <!-- Frameworks -->
+  <project path="frameworks/av" name="frameworks_av" remote="ozone" />
+  <project path="frameworks/base" name="frameworks_base" remote="ozone" />
+  <project path="frameworks/native" name="frameworks_native" remote="ozone" />
+  <project path="frameworks/libs/native_bridge_support" name="frameworks_libs_native_bridge_support" remote="ozone" />
+  <project path="frameworks/libs/systemui" name="frameworks_libs_systemui" remote="ozone" />
+  <project path="frameworks/opt/net/ims" name="frameworks_opt_net_ims" remote="ozone" />
+  <project path="frameworks/opt/telephony" name="frameworks_opt_telephony" remote="ozone" />
+
+  <!-- Hardware -->
+  <project path="hardware/interfaces" name="hardware_interfaces" remote="ozone" />
+  <project path="hardware/libhardware" name="hardware_libhardware" remote="ozone" />
+  <project path="hardware/qcom/display" name="hardware_qcom_display" remote="ozone" />
+  <project path="hardware/qcom/gps" name="hardware_qcom_gps" remote="ozone" />
+  <project path="hardware/qcom/keymaster" name="hardware_qcom_keymaster" remote="ozone" />
+  <project path="hardware/qcom/media" name="hardware_qcom_media" remote="ozone" />
+  <project path="hardware/qcom-caf/common" name="hardware_qcom-caf_common" remote="ozone" >
+    <!-- Add guard for AOSP hardware/qcom directory. -->
+    <linkfile src="os_pickup_aosp.mk" dest="hardware/qcom/Android.mk" />
+    <!-- Add guards for CAF repositories. -->
+    <linkfile src="os_pickup.bp" dest="hardware/qcom-caf/msm8996/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8996/Android.mk" />
+  </project>
+  <project path="hardware/qcom-caf/bt" name="hardware_qcom_bt" remote="ozone" revision="10-caf" />
+  <project path="hardware/qcom-caf/msm8996/audio" name="hardware_qcom_audio" revision="11-caf-8996" remote="ozone" />
+  <project path="hardware/qcom-caf/msm8996/display" name="hardware_qcom_display" revision="11-caf-8996" remote="ozone"  />
+  <project path="hardware/qcom-caf/msm8996/media" name="hardware_qcom_media" revision="11-caf-8996" remote="ozone" />
+  <project path="hardware/qcom-caf/wlan" name="hardware_qcom_wlan" remote="ozone" />
+  <project path="hardware/ril" name="hardware_ril" remote="ozone" />
+  <project path="hardware/ozone/interfaces" name="hardware_ozone_interfaces" remote="ozone" />
+
+  <!-- Manifest -->
+  <project path="manifest" name="manifest" remote="ozone" />
+
+  <!-- Packages -->
+  <project path="packages/apps/Bluetooth" name="packages_apps_Bluetooth" remote="ozone" />
+  <project path="packages/apps/Launcher3" name="packages_apps_Launcher3" remote="ozone" />
+  <project path="packages/apps/PermissionController" name="packages_apps_PackageInstaller" remote="ozone" />
+  <project path="packages/apps/PhoneCommon" name="packages_apps_PhoneCommon" remote="ozone" />
+  <project path="packages/apps/Settings" name="packages_apps_Settings" remote="ozone" />
+  <project path="packages/apps/SettingsIntelligence" name="packages_apps_SettingsIntelligence" remote="ozone" />
+  <project path="packages/apps/SimpleDeviceConfig" name="packages_apps_SimpleDeviceConfig" remote="ozone" />
+  <project path="packages/apps/ThemePicker" name="packages_apps_ThemePicker" remote="ozone" />
+  <project path="packages/apps/WallpaperPicker2" name="packages_apps_WallpaperPicker2" remote="ozone" />
+  <project path="packages/services/Telecomm" name="packages_services_Telecomm" remote="ozone" />
+  <project path="packages/services/Telephony" name="packages_services_Telephony" remote="ozone" />
+
+  <!-- Prebuilts -->
+  <project path="prebuilts/abi-dumps/vndk" name="prebuilts_abi-dumps_vndk" remote="ozone" />
+  <project path="prebuilts/clang/host/linux-x86" name="prebuilts_clang_host_linux-x86" remote="ozone" />
+  <project path="prebuilts/extract-tools" name="prebuilts_extract-tools" remote="ozone" />
+
+  <!-- Recovery -->
+  <project path="bootable/recovery" name="bootable_recovery" remote="ozone" />
+
+  <!-- System -->
+  <project path="system/bt" name="system_bt" remote="ozone" />
+  <project path="system/core" name="system_core" remote="ozone" />
+  <project path="system/linkerconfig" name="system_linkerconfig" remote="ozone" />
+  <project path="system/qcom" name="system_qcom" remote="ozone" />
+  <project path="system/security" name="system_security" remote="ozone" />
+  <project path="system/sepolicy" name="system_sepolicy" remote="ozone" />
+  <project path="system/tools/hidl" name="system_tools_hidl" remote="ozone" />
+  <project path="system/update_engine" name="system_update_engine" remote="ozone" />
+  <project path="system/vold" name="system_vold" remote="ozone" />
+
+  <!-- Tools -->
+  <project path="tools/extract-utils" name="tools_extract-utils" remote="ozone" />
+
+  <!-- Vendor -->
+  <project path="vendor/codeaurora/telephony" name="vendor_codeaurora_telephony" remote="ozone" />
+  <project path="vendor/ozone" name="vendor_ozone" remote="ozone" />
+  <project path="vendor/qcom/opensource/audio" name="platform/vendor/qcom-opensource/audio" remote="caf" />
+  <project path="vendor/qcom/opensource/data-ipa-cfg-mgr" name="vendor_qcom_opensource_data-ipa-cfg-mgr" remote="ozone" />
+  <project path="vendor/qcom/opensource/dataservices" name="vendor_qcom_opensource_dataservices" remote="ozone" />
+  <project path="vendor/qcom/opensource/interfaces" name="vendor_qcom_opensource_interfaces" remote="ozone" />
+  <project path="vendor/qcom/opensource/power" name="vendor_qcom_opensource_power" remote="ozone" />
+  <project path="device/qcom/common" name="device_qcom_common" remote="ozone" />
+  <project path="device/qcom/sepolicy" name="device_qcom_sepolicy" remote="ozone"  />
+  <project path="device/qcom/sepolicy_vndr" name="device_qcom_sepolicy" remote="ozone" revision="11-vendor" />
+  <project path="device/qcom/sepolicy-legacy-um" name="device_qcom_sepolicy" remote="ozone" revision="11-legacy-um" />  <project path="vendor/qcom/opensource/vibrator" name="vendor_qcom_opensource_vibrator" remote="ozone" />
+  <project path="vendor/qcom/opensource/commonsys/bluetooth_ext" name="vendor_qcom_opensource_bluetooth_ext" remote="ozone" />
+  <project path="vendor/qcom/opensource/commonsys/packages/apps/Bluetooth" name="vendor_qcom_opensource_packages_apps_Bluetooth" remote="ozone" />
+  <project path="vendor/qcom/opensource/commonsys/system/bt" name="vendor_qcom_opensource_system_bt" remote="ozone" />
+  <project path="vendor/qcom/opensource/commonsys-intf/bluetooth" name="vendor_qcom_opensource_bluetooth-commonsys-intf" remote="ozone" />
+  <project path="vendor/qcom/opensource/commonsys-intf/display" name="vendor_qcom_opensource_display-commonsys-intf" remote="ozone" />
+  <project path="vendor/qcom/opensource/commonsys-intf/wfd" name="vendor_qcom_opensource_wfd-commonsys" remote="ozone" />
+
+</manifest>
